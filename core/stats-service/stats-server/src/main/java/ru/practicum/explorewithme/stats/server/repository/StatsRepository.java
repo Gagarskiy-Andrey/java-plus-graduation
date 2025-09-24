@@ -15,25 +15,25 @@ import java.util.List;
 public interface StatsRepository extends JpaRepository<EndpointHit, Long> {
 
     @Query("SELECT new ru.practicum.explorewithme.stats.dto.ViewStatsDto(eh.app, eh.uri, COUNT(eh.ip)) " +
-        "FROM EndpointHit eh " +
-        "WHERE eh.timestamp BETWEEN :start AND :end " +
-        "AND (:uris IS NULL OR eh.uri IN :uris) " +
-        "GROUP BY eh.app, eh.uri " +
-        "ORDER BY COUNT(eh.ip) DESC")
+            "FROM EndpointHit eh " +
+            "WHERE eh.timestamp BETWEEN :start AND :end " +
+            "AND (:uris IS NULL OR eh.uri IN :uris) " +
+            "GROUP BY eh.app, eh.uri " +
+            "ORDER BY COUNT(eh.ip) DESC")
     List<ViewStatsDto> findStats(
-        @Param("start") LocalDateTime start,
-        @Param("end") LocalDateTime end,
-        @Param("uris") Collection<String> uris);
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end,
+            @Param("uris") Collection<String> uris);
 
     @Query("SELECT new ru.practicum.explorewithme.stats.dto.ViewStatsDto(eh.app, eh.uri, COUNT(DISTINCT eh.ip)) " +
-        "FROM EndpointHit eh " +
-        "WHERE eh.timestamp BETWEEN :start AND :end " +
-        "AND (:uris IS NULL OR eh.uri IN :uris) " +
-        "GROUP BY eh.app, eh.uri " +
-        "ORDER BY COUNT(DISTINCT eh.ip) DESC")
+            "FROM EndpointHit eh " +
+            "WHERE eh.timestamp BETWEEN :start AND :end " +
+            "AND (:uris IS NULL OR eh.uri IN :uris) " +
+            "GROUP BY eh.app, eh.uri " +
+            "ORDER BY COUNT(DISTINCT eh.ip) DESC")
     List<ViewStatsDto> findUniqueStats(
-        @Param("start") LocalDateTime start,
-        @Param("end") LocalDateTime end,
-        @Param("uris") Collection<String> uris);
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end,
+            @Param("uris") Collection<String> uris);
 
 }

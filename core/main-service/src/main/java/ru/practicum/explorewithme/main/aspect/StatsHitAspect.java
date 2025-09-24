@@ -37,7 +37,7 @@ public class StatsHitAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
             log.warn("Cannot log hit: HttpServletRequest is not available in the current context for method: {}",
-                joinPoint.getSignature().toShortString());
+                    joinPoint.getSignature().toShortString());
             return;
         }
         HttpServletRequest request = attributes.getRequest();
@@ -59,11 +59,11 @@ public class StatsHitAspect {
         log.debug("StatsHitAspect: Logging hit for app='{}', uri='{}', ip='{}'", appName, uri, ip);
 
         EndpointHitDto hitDto = EndpointHitDto.builder()
-            .app(appName)
-            .uri(uri)
-            .ip(ip)
-            .timestamp(timestamp)
-            .build();
+                .app(appName)
+                .uri(uri)
+                .ip(ip)
+                .timestamp(timestamp)
+                .build();
 
         try {
             statsClient.saveHit(hitDto);

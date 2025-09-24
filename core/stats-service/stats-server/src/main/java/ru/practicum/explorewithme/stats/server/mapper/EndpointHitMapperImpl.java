@@ -15,7 +15,7 @@ public class EndpointHitMapperImpl implements EndpointHitMapper {
         }
 
         return EndpointHit.builder().app(dto.getApp()).uri(dto.getUri()).ip(dto.getIp())
-            .timestamp(dto.getTimestamp()).build();
+                .timestamp(dto.getTimestamp()).build();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class EndpointHitMapperImpl implements EndpointHitMapper {
         }
 
         return EndpointHitDto.builder().app(entity.getApp()).uri(entity.getUri()).ip(entity.getIp())
-            .timestamp(entity.getTimestamp()).build();
+                .timestamp(entity.getTimestamp()).build();
 
     }
 }

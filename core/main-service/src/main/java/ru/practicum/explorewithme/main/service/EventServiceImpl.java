@@ -83,7 +83,7 @@ public class EventServiceImpl implements EventService {
         if (text != null && !text.isBlank()) {
             String searchText = text.toLowerCase();
             predicate.and(qEvent.annotation.lower().like("%" + searchText + "%")
-                .or(qEvent.description.lower().like("%" + searchText + "%")));
+                    .or(qEvent.description.lower().like("%" + searchText + "%")));
         }
 
         if (categories != null && !categories.isEmpty()) {
@@ -120,24 +120,24 @@ public class EventServiceImpl implements EventService {
         Map<Long, Long> viewsMap = getViewsForEvents(foundEvents);
 
         Map<Long, Event> eventMapById = foundEvents.stream()
-            .collect(Collectors.toMap(Event::getId, e -> e));
+                .collect(Collectors.toMap(Event::getId, e -> e));
 
         List<EventShortDto> eventDtos = foundEvents.stream()
-            .map(event -> {
-                EventShortDto dto = eventMapper.toEventShortDto(event);
-                dto.setViews(viewsMap.getOrDefault(event.getId(), 0L));
-                return dto;
-            })
-            .collect(Collectors.toList());
+                .map(event -> {
+                    EventShortDto dto = eventMapper.toEventShortDto(event);
+                    dto.setViews(viewsMap.getOrDefault(event.getId(), 0L));
+                    return dto;
+                })
+                .collect(Collectors.toList());
 
         if (onlyAvailable) {
             eventDtos = eventDtos.stream()
-                .filter(dto -> {
-                    Event event = eventMapById.get(dto.getId());
-                    if (event == null) return false;
-                    return event.getParticipantLimit() == 0 || dto.getConfirmedRequests() < event.getParticipantLimit();
-                })
-                .collect(Collectors.toList());
+                    .filter(dto -> {
+                        Event event = eventMapById.get(dto.getId());
+                        if (event == null) return false;
+                        return event.getParticipantLimit() == 0 || dto.getConfirmedRequests() < event.getParticipantLimit();
+                    })
+                    .collect(Collectors.toList());
         }
 
         if (sort != null && sort.equalsIgnoreCase("VIEWS")) {
@@ -154,23 +154,23 @@ public class EventServiceImpl implements EventService {
         log.info("Public: Fetching event id={}", eventId);
 
         Event event = eventRepository.findByIdAndState(eventId, EventState.PUBLISHED)
-            .orElseThrow(() -> new EntityNotFoundException(
-                String.format("Event with id=%d not found or is not published.", eventId)));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Event with id=%d not found or is not published.", eventId)));
 
         long views = 0L;
         try {
             String eventUri = "/events/" + event.getId();
             List<ViewStatsDto> stats = statsClient.getStats(
-                LocalDateTime.of(1970, 1, 1, 0, 0, 0), // Очень ранняя дата
-                LocalDateTime.now(),
-                List.of(eventUri),
-                true // Уникальные просмотры
+                    LocalDateTime.of(1970, 1, 1, 0, 0, 0), // Очень ранняя дата
+                    LocalDateTime.now(),
+                    List.of(eventUri),
+                    true // Уникальные просмотры
             );
 
             if (stats != null && !stats.isEmpty()) {
                 Optional<ViewStatsDto> eventStat = stats.stream()
-                    .filter(s -> eventUri.equals(s.getUri()))
-                    .findFirst();
+                        .filter(s -> eventUri.equals(s.getUri()))
+                        .findFirst();
                 if (eventStat.isPresent()) {
                     views = eventStat.get().getHits();
                 }
@@ -188,7 +188,7 @@ public class EventServiceImpl implements EventService {
         resultDto.setConfirmedRequests(confirmedRequestsCount);
 
         log.info("Public: Found event id={} with title='{}', views={}, confirmedRequests={}",
-            eventId, resultDto.getTitle(), resultDto.getViews(), resultDto.getConfirmedRequests());
+                eventId, resultDto.getTitle(), resultDto.getViews(), resultDto.getConfirmedRequests());
         return resultDto;
     }
 
@@ -447,22 +447,22 @@ public class EventServiceImpl implements EventService {
             return Collections.emptyMap();
         }
         List<String> uris = events.stream()
-            .map(event -> "/events/" + event.getId())
-            .distinct()
-            .collect(Collectors.toList());
+                .map(event -> "/events/" + event.getId())
+                .distinct()
+                .collect(Collectors.toList());
 
         LocalDateTime earliestCreation = events.stream()
-            .map(Event::getCreatedOn)
-            .min(LocalDateTime::compareTo)
-            .orElse(LocalDateTime.of(1970, 1, 1, 0, 0));
+                .map(Event::getCreatedOn)
+                .min(LocalDateTime::compareTo)
+                .orElse(LocalDateTime.of(1970, 1, 1, 0, 0));
 
         Map<Long, Long> viewsMap = new HashMap<>();
         try {
             List<ViewStatsDto> stats = statsClient.getStats(
-                earliestCreation,
-                LocalDateTime.now(),
-                uris,
-                true // Уникальные просмотры
+                    earliestCreation,
+                    LocalDateTime.now(),
+                    uris,
+                    true // Уникальные просмотры
             );
             if (stats != null) {
                 for (ViewStatsDto stat : stats) {

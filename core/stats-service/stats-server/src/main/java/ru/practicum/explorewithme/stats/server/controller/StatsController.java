@@ -3,8 +3,10 @@ package ru.practicum.explorewithme.stats.server.controller;
 import static ru.practicum.explorewithme.common.constants.DateTimeConstants.DATE_TIME_FORMAT_PATTERN;
 
 import jakarta.validation.Valid;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,20 +57,20 @@ public class StatsController implements StatsClient {
     @GetMapping("/stats")
     @ResponseStatus(HttpStatus.OK)
     public List<ViewStatsDto> getStats(
-        @RequestParam(name = "start")
-        @DateTimeFormat(pattern = DATE_TIME_FORMAT_PATTERN)
-        LocalDateTime start,
+            @RequestParam(name = "start")
+            @DateTimeFormat(pattern = DATE_TIME_FORMAT_PATTERN)
+            LocalDateTime start,
 
-        @RequestParam(name = "end")
-        @DateTimeFormat(pattern = DATE_TIME_FORMAT_PATTERN)
-        LocalDateTime end,
+            @RequestParam(name = "end")
+            @DateTimeFormat(pattern = DATE_TIME_FORMAT_PATTERN)
+            LocalDateTime end,
 
-        @RequestParam(name = "uris", required = false) List<String> uris,
-        @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
+            @RequestParam(name = "uris", required = false) List<String> uris,
+            @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
 
         log.info("Controller: request to retrieve stats received.");
         log.debug("Request params: start={}, end={}, uris={}, unique={}",
-            start, end, uris, unique);
+                start, end, uris, unique);
 
         return statsService.getStats(start, end, uris, unique);
     }

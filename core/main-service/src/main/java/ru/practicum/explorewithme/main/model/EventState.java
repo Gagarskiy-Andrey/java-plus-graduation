@@ -19,4 +19,3 @@ public enum EventState {
      */
     CANCELED
 }
-

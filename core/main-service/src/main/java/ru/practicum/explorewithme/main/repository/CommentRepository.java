@@ -11,7 +11,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import ru.practicum.explorewithme.main.model.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long>,
-    QuerydslPredicateExecutor<Comment> {
+        QuerydslPredicateExecutor<Comment> {
 
     @EntityGraph(attributePaths = {"author"})
     Page<Comment> findByEventIdAndIsDeletedFalse(Long eventId, Pageable pageable);

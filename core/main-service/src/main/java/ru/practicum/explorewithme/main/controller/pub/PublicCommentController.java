@@ -31,10 +31,10 @@ public class PublicCommentController {
             @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero int from,
             @RequestParam(name = "size", defaultValue = "10") @Positive int size,
             @Pattern(regexp = "^(createdOn),(ASC|DESC)$",
-                      message = "Параметр sort должен иметь формат createdOn,ASC|DESC")
+                    message = "Параметр sort должен иметь формат createdOn,ASC|DESC")
             @RequestParam(defaultValue = "createdOn,DESC") String sort) {
         log.info("Public: Received request to get list comments for eventId:" +
-                        " {}, parameters: from: {}, size: {}, sort: {}", eventId, from, size, sort);
+                " {}, parameters: from: {}, size: {}, sort: {}", eventId, from, size, sort);
         Sort sortingRule;
         if (sort != null && sort.equalsIgnoreCase("createdOn,ASC")) {
             sortingRule = Sort.by(Sort.Direction.ASC, "createdOn");

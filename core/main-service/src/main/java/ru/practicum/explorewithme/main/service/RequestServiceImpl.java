@@ -89,7 +89,7 @@ public class RequestServiceImpl implements RequestService {
             throw new BusinessRuleViolationException("Not all requests are for event with Id = " + eventId);
         }
         if (requestRepository
-              .countByEvent_IdAndStatusEquals(eventId, RequestStatus.CONFIRMED) >= event.getParticipantLimit()) {
+                .countByEvent_IdAndStatusEquals(eventId, RequestStatus.CONFIRMED) >= event.getParticipantLimit()) {
             throw new BusinessRuleViolationException("Event participant limit reached");
         }
         LinkedHashMap<Long, ParticipationRequest> requestsMap = requestRepository.findAllByIdIn(requestIdsForUpdate).stream()
@@ -119,14 +119,14 @@ public class RequestServiceImpl implements RequestService {
         final int[] availableRequests = {event.getParticipantLimit() -
                 requestRepository.countByEvent_IdAndStatusEquals(eventId, RequestStatus.CONFIRMED)};
         requestsMap.values().forEach(request -> {
-             if (availableRequests[0] > 0) {
-                 request.setStatus(RequestStatus.CONFIRMED);
-                 result.getConfirmedRequests().add(requestMapper.toRequestDto(request));
-                 availableRequests[0]--;
-             } else {
-                 request.setStatus(RequestStatus.REJECTED);
-                 result.getRejectedRequests().add(requestMapper.toRequestDto(request));
-             }
+            if (availableRequests[0] > 0) {
+                request.setStatus(RequestStatus.CONFIRMED);
+                result.getConfirmedRequests().add(requestMapper.toRequestDto(request));
+                availableRequests[0]--;
+            } else {
+                request.setStatus(RequestStatus.REJECTED);
+                result.getRejectedRequests().add(requestMapper.toRequestDto(request));
+            }
         });
         requestRepository.saveAll(requestsMap.values());
         if (availableRequests[0] == 0) {

@@ -39,7 +39,7 @@ public class StatsServiceImpl implements StatsService {
     @Transactional(readOnly = true)
     public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> urisFromController, boolean unique) {
         log.debug("Service: Requesting stats with params: start={}, end={}, uris={}, unique={}",
-            start, end, urisFromController, unique);
+                start, end, urisFromController, unique);
 
         if (start != null && end != null && start.isAfter(end)) {
             log.warn("Validation error in getStats: Start date {} is after end date {}", start, end);

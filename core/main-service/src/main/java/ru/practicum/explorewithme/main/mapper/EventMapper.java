@@ -13,8 +13,8 @@ import ru.practicum.explorewithme.main.model.Event;
 public interface EventMapper {
 
     @Mappings({
-        @Mapping(source = "confirmedRequestsCount", target = "confirmedRequests"),
-        @Mapping(target = "views", ignore = true)
+            @Mapping(source = "confirmedRequestsCount", target = "confirmedRequests"),
+            @Mapping(target = "views", ignore = true)
     })
     EventFullDto toEventFullDto(Event event);
 
@@ -30,8 +30,8 @@ public interface EventMapper {
     List<EventFullDto> toEventFullDtoList(List<Event> events);
 
     @Mappings({
-        @Mapping(source = "confirmedRequestsCount", target = "confirmedRequests"),
-        @Mapping(target = "views", ignore = true)
+            @Mapping(source = "confirmedRequestsCount", target = "confirmedRequests"),
+            @Mapping(target = "views", ignore = true)
     })
     EventShortDto toEventShortDto(Event event);
 

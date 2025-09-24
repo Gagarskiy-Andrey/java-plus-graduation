@@ -46,9 +46,9 @@ public class PrivateEventController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<EventShortDto> getEventsAddedByCurrentUser(
-        @PathVariable Long userId,
-        @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero int from,
-        @RequestParam(name = "size", defaultValue = "10") @Positive int size) {
+            @PathVariable Long userId,
+            @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero int from,
+            @RequestParam(name = "size", defaultValue = "10") @Positive int size) {
 
         log.info("User id={}: Received request to get own events, from={}, size={}", userId, from, size);
         List<EventShortDto> events = eventService.getEventsByOwner(userId, from, size);
@@ -67,8 +67,8 @@ public class PrivateEventController {
     @GetMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     public EventFullDto getFullEventInfoByOwner(
-        @PathVariable Long userId,
-        @PathVariable Long eventId) {
+            @PathVariable Long userId,
+            @PathVariable Long eventId) {
 
         log.info("User id={}: Received request to get full info for event id={}", userId, eventId);
         EventFullDto eventFullDto = eventService.getEventPrivate(userId, eventId);
@@ -107,17 +107,17 @@ public class PrivateEventController {
     @PatchMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     public EventFullDto updateEventByOwner(
-        @PathVariable Long userId,
-        @PathVariable Long eventId,
-        @Valid @RequestBody UpdateEventUserRequestDto updateEventUserRequestDto) {
+            @PathVariable Long userId,
+            @PathVariable Long eventId,
+            @Valid @RequestBody UpdateEventUserRequestDto updateEventUserRequestDto) {
 
         log.info("User id={}: Received request to update event id={} with data: {}",
-            userId, eventId, updateEventUserRequestDto);
+                userId, eventId, updateEventUserRequestDto);
 
         EventFullDto updatedEvent = eventService.updateEventByOwner(userId, eventId, updateEventUserRequestDto);
 
         log.info("User id={}: Event id={} updated successfully. New title: {}",
-            userId, eventId, updatedEvent.getTitle());
+                userId, eventId, updatedEvent.getTitle());
         return updatedEvent;
     }
 
