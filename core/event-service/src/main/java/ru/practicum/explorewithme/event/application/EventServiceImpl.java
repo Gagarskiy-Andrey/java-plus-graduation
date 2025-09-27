@@ -25,7 +25,7 @@ import ru.practicum.explorewithme.api.client.user.UserClient;
 import ru.practicum.explorewithme.api.client.user.dto.UserDto;
 import ru.practicum.explorewithme.api.error.BusinessRuleViolationException;
 import ru.practicum.explorewithme.api.error.EntityNotFoundException;
-import ru.practicum.explorewithme.api.utility.DtoMapper;
+import ru.practicum.explorewithme.api.utility.UserMapper;
 import ru.practicum.explorewithme.event.application.params.AdminEventSearchParams;
 import ru.practicum.explorewithme.event.application.params.PublicEventSearchParams;
 import ru.practicum.explorewithme.event.domain.Category;
@@ -51,7 +51,7 @@ public class EventServiceImpl implements EventService {
     private final CategoryRepository categoryRepository;
     private final RequestClient requestClient;
     private final StatsClient statsClient;
-    private final DtoMapper dtoMapper;
+    private final UserMapper userMapper;
 
     private static final long MIN_HOURS_BEFORE_PUBLICATION_FOR_ADMIN = 1;
 
@@ -323,7 +323,7 @@ public class EventServiceImpl implements EventService {
         Event event = eventMapper.toEvent(newEventDto);
         event.setInitiatorId(userId);
         EventFullDto savedEvent = eventMapper.toEventFullDto(eventRepository.save(event));
-        savedEvent.setInitiator(dtoMapper.toUserShortDto(initiator));
+        savedEvent.setInitiator(userMapper.toUserShortDto(initiator));
         return enrichEventsWithConfirmedRequests(List.of(savedEvent)).getFirst();
     }
 

@@ -24,7 +24,7 @@ import ru.practicum.explorewithme.api.client.user.dto.UserDto;
 import ru.practicum.explorewithme.api.client.user.dto.UserShortDto;
 import ru.practicum.explorewithme.api.error.BusinessRuleViolationException;
 import ru.practicum.explorewithme.api.error.EntityNotFoundException;
-import ru.practicum.explorewithme.api.utility.DtoMapper;
+import ru.practicum.explorewithme.api.utility.UserMapper;
 import ru.practicum.explorewithme.comment.application.params.AdminCommentSearchParams;
 import ru.practicum.explorewithme.comment.application.params.PublicCommentParameters;
 import ru.practicum.explorewithme.comment.domain.Comment;
@@ -40,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final EventClient eventClient;
     private final CommentMapper commentMapper;
-    private final DtoMapper dtoMapper;
+    private final UserMapper userMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -198,7 +198,7 @@ public class CommentServiceImpl implements CommentService {
 
         Map<Long, UserShortDto> authorMap = userClient.getUsersByIds(new ArrayList<>(authorIds))
                 .stream()
-                .collect(Collectors.toMap(UserDto::getId, dtoMapper::toUserShortDto));
+                .collect(Collectors.toMap(UserDto::getId, userMapper::toUserShortDto));
 
         for (int i = 0; i < comments.size(); i++) {
             Comment comment = comments.get(i);

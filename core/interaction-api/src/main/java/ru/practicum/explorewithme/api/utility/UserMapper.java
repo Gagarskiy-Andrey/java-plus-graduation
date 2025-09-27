@@ -6,7 +6,7 @@ import ru.practicum.explorewithme.api.client.user.dto.UserDto;
 import ru.practicum.explorewithme.api.client.user.dto.UserShortDto;
 
 @Mapper(componentModel = "spring")
-public interface DtoMapper {
+public interface UserMapper {
 
     UserShortDto toUserShortDto(UserDto userDto);
 

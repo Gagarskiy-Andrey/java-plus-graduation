@@ -61,6 +61,7 @@ services:
         condition: service_healthy
     ports:
       - "9090:9090"
+    restart: unless-stopped
     environment:
       EUREKA_URI: http://discovery-server:8761/eureka/
       SPRING_DATASOURCE_URL: jdbc:postgresql://ewm-db:5432/ewm_stats_db
@@ -82,6 +83,7 @@ services:
         condition: service_started
     ports:
       - "8081:8081"
+    restart: unless-stopped
     environment:
       EUREKA_URI: http://discovery-server:8761/eureka/
       SPRING_DATASOURCE_URL: jdbc:postgresql://ewm-db:5432/ewm_event
@@ -103,6 +105,7 @@ services:
         condition: service_started
     ports:
       - "8082:8082"
+    restart: unless-stopped
     environment:
       EUREKA_URI: http://discovery-server:8761/eureka/
       SPRING_DATASOURCE_URL: jdbc:postgresql://ewm-db:5432/ewm_user
@@ -124,6 +127,7 @@ services:
         condition: service_started
     ports:
       - "8083:8083"
+    restart: unless-stopped
     environment:
       EUREKA_URI: http://discovery-server:8761/eureka/
       SPRING_DATASOURCE_URL: jdbc:postgresql://ewm-db:5432/ewm_request
@@ -145,6 +149,7 @@ services:
         condition: service_started
     ports:
       - "8084:8084"
+    restart: unless-stopped
     environment:
       EUREKA_URI: http://discovery-server:8761/eureka/
       SPRING_DATASOURCE_URL: jdbc:postgresql://ewm-db:5432/ewm_comment
