@@ -15,7 +15,7 @@ import ru.practicum.ewm.event.application.params.PublicEventSearchParams;
 import ru.practicum.ewm.event.domain.Event;
 import ru.practicum.ewm.event.domain.EventRepository;
 import ru.practicum.ewm.event.domain.EventState;
-import ru.practicum.explorewithme.event.domain.QEvent;
+import ru.practicum.ewm.event.domain.QEvent;
 
 @Component
 @RequiredArgsConstructor
