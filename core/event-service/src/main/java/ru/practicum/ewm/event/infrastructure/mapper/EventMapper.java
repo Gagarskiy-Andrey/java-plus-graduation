@@ -27,7 +27,7 @@ public interface EventMapper {
     @Mapping(target = "compilations", ignore = true)
     @Mapping(target = "initiatorId", ignore = true)
     @Mapping(target = "createdOn", ignore = true)
-    @Mapping(target = "state", expression = "java(ru.practicum.explorewithme.event.domain.EventState.PENDING)")
+    @Mapping(target = "state", expression = "java(ru.practicum.ewm.event.domain.EventState.PENDING)")
     Event toEvent(NewEventDto newEventDto);
 
     List<EventFullDto> toEventFullDtoList(List<Event> events);
