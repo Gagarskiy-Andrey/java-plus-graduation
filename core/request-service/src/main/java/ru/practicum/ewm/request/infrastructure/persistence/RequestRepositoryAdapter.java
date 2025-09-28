@@ -40,19 +40,19 @@ public class RequestRepositoryAdapter implements RequestRepository {
     @Override
     public List<ParticipationRequest> findByRequesterId(Long requesterId) {
         return jpaRequestRepository.findByRequesterId(requesterId).stream()
-                .sorted(defaultSort.getOrderFor("created").isDescending() ?
-                        Comparator.comparing(ParticipationRequest::getCreated).reversed() :
-                        Comparator.comparing(ParticipationRequest::getCreated))
-                .collect(Collectors.toList());
+            .sorted(defaultSort.getOrderFor("created").isDescending() ?
+                Comparator.comparing(ParticipationRequest::getCreated).reversed() :
+                Comparator.comparing(ParticipationRequest::getCreated))
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<ParticipationRequest> findByEventId(Long eventId) {
         return jpaRequestRepository.findByEventId(eventId).stream()
-                .sorted(defaultSort.getOrderFor("created").isDescending() ?
-                        Comparator.comparing(ParticipationRequest::getCreated).reversed() :
-                        Comparator.comparing(ParticipationRequest::getCreated))
-                .collect(Collectors.toList());
+            .sorted(defaultSort.getOrderFor("created").isDescending() ?
+                Comparator.comparing(ParticipationRequest::getCreated).reversed() :
+                Comparator.comparing(ParticipationRequest::getCreated))
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -92,17 +92,17 @@ public class RequestRepositoryAdapter implements RequestRepository {
         }
 
         Map<Long, Long> actualCounts = jpaRequestRepository.countConfirmedRequestsForEventIds(eventIds)
-                .stream()
-                .collect(Collectors.toMap(
-                        JpaRequestRepository.ConfirmedRequestCountProjection::getEventId,
-                        JpaRequestRepository.ConfirmedRequestCountProjection::getRequestCount
-                ));
+            .stream()
+            .collect(Collectors.toMap(
+                JpaRequestRepository.ConfirmedRequestCountProjection::getEventId,
+                JpaRequestRepository.ConfirmedRequestCountProjection::getRequestCount
+            ));
 
         Map<Long, Long> result = eventIds.stream()
-                .collect(Collectors.toMap(
-                        Function.identity(),
-                        id -> 0L
-                ));
+            .collect(Collectors.toMap(
+                Function.identity(),
+                id -> 0L
+            ));
 
         result.putAll(actualCounts);
 

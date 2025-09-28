@@ -1,4 +1,4 @@
-package ru.practicum.explorewithme.user.presentation.internal;
+package ru.practicum.ewm.user.presentation.internal;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.ewm.api.client.user.UserClient;
 import ru.practicum.ewm.api.client.user.dto.UserDto;
-import ru.practicum.explorewithme.user.application.UserService;
+import ru.practicum.ewm.user.application.UserService;
 
 @RestController
 @RequestMapping("/internal/users")

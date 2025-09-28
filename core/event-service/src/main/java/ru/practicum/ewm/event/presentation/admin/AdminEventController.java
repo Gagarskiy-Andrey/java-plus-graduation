@@ -47,20 +47,20 @@ public class AdminEventController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<EventFullDto> searchEventsAdmin(
-            @Valid AdminEventSearchParams params,
-            @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero int from,
-            @RequestParam(name = "size", defaultValue = "10") @Positive int size) {
+        @Valid AdminEventSearchParams params,
+        @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero int from,
+        @RequestParam(name = "size", defaultValue = "10") @Positive int size) {
 
         log.info(
-                "Admin: Received request to search events with params: users={}, states={}, "
-                        + "categories={}, rangeStart={}, rangeEnd={}, from={}, size={}",
-                params.getUsers(), params.getStates(), params.getCategories(), params.getRangeStart(),
-                params.getRangeEnd(), from, size);
+            "Admin: Received request to search events with params: users={}, states={}, "
+                + "categories={}, rangeStart={}, rangeEnd={}, from={}, size={}",
+            params.getUsers(), params.getStates(), params.getCategories(), params.getRangeStart(),
+            params.getRangeEnd(), from, size);
 
         List<EventFullDto> foundEvents = eventService.getEventsAdmin(
-                params,
-                from,
-                size
+            params,
+            from,
+            size
         );
         log.info("Admin: Found {} events for the given criteria.", foundEvents.size());
         return foundEvents;
@@ -83,16 +83,16 @@ public class AdminEventController {
     @PatchMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     public EventFullDto moderateEventByAdmin(
-            @PathVariable Long eventId,
-            @Valid @RequestBody UpdateEventAdminRequestDto updateEventAdminRequestDto) {
+        @PathVariable Long eventId,
+        @Valid @RequestBody UpdateEventAdminRequestDto updateEventAdminRequestDto) {
 
         log.info("Admin: Received request to moderate event id={} with data: {}",
-                eventId, updateEventAdminRequestDto);
+            eventId, updateEventAdminRequestDto);
 
         EventFullDto moderatedEvent = eventService.moderateEventByAdmin(eventId, updateEventAdminRequestDto);
 
         log.info("Admin: Event id={} moderated successfully. New state: {}",
-                eventId, moderatedEvent.getState());
+            eventId, moderatedEvent.getState());
         return moderatedEvent;
     }
 }

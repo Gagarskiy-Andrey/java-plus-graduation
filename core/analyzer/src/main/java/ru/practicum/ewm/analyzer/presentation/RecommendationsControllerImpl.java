@@ -25,15 +25,15 @@ public class RecommendationsControllerImpl extends RecommendationsControllerGrpc
 
     @Override
     public void getSimilarEvents(
-            SimilarEventsRequestProto request,
-            StreamObserver<RecommendedEventProto> responseObserver) {
+        SimilarEventsRequestProto request,
+        StreamObserver<RecommendedEventProto> responseObserver) {
         log.info("gRPC request received for GetSimilarEvents: {}", request);
 
         try {
             List<Recommendation> recommendations = recommendationsService.findSimilarEvents(
-                    request.getEventId(),
-                    request.getUserId(),
-                    request.getMaxResults()
+                request.getEventId(),
+                request.getUserId(),
+                request.getMaxResults()
             );
 
             for (Recommendation recommendation : recommendations) {
@@ -54,14 +54,14 @@ public class RecommendationsControllerImpl extends RecommendationsControllerGrpc
 
     @Override
     public void getInteractionsCount(
-            InteractionsCountRequestProto request,
-            StreamObserver<RecommendedEventProto> responseObserver
+        InteractionsCountRequestProto request,
+        StreamObserver<RecommendedEventProto> responseObserver
     ) {
         log.info("gRPC request received for GetInteractionsCount: {}", request);
 
         try {
             List<Recommendation> recommendations = recommendationsService.getInteractionsCount(
-                    request.getEventIdsList()
+                request.getEventIdsList()
             );
 
             for (Recommendation recommendation : recommendations) {
@@ -82,14 +82,14 @@ public class RecommendationsControllerImpl extends RecommendationsControllerGrpc
 
     @Override
     public void getRecommendationsForUser(
-            UserPredictionsRequestProto request,
-            StreamObserver<RecommendedEventProto> responseObserver
+        UserPredictionsRequestProto request,
+        StreamObserver<RecommendedEventProto> responseObserver
     ) {
         log.info("gRPC request received for GetRecommendationsForUser: {}", request);
         try {
             List<Recommendation> predictions = recommendationsService.getUserPredictions(
-                    request.getUserId(),
-                    request.getMaxResults()
+                request.getUserId(),
+                request.getMaxResults()
             );
 
             for (Recommendation prediction : predictions) {

@@ -23,7 +23,7 @@ public interface UserActionMapper {
             case ACTION_REGISTER -> ActionTypeAvro.REGISTER;
             case ACTION_LIKE -> ActionTypeAvro.LIKE;
             case UNRECOGNIZED ->
-                    throw new IllegalArgumentException("Cannot map unknown or unrecognized ActionTypeProto: " + actionTypeProto);
+                throw new IllegalArgumentException("Cannot map unknown or unrecognized ActionTypeProto: " + actionTypeProto);
         };
     }
 

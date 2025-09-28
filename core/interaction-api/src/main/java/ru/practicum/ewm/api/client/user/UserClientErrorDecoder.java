@@ -10,7 +10,7 @@ public class UserClientErrorDecoder extends AbstractErrorDecoder {
     @Override
     protected Map<Integer, Function<String, Exception>> getSpecificErrorHandlers() {
         return Map.of(
-                404, EntityNotFoundException::new
+            404, EntityNotFoundException::new
         );
     }
 }

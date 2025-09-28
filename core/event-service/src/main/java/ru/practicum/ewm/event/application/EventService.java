@@ -12,9 +12,9 @@ import ru.practicum.ewm.event.application.params.PublicEventSearchParams;
 
 public interface EventService {
     List<EventFullDto> getEventsAdmin(
-            AdminEventSearchParams params,
-            int from,
-            int size
+        AdminEventSearchParams params,
+        int from,
+        int size
     );
 
     List<EventShortDto> getEventsByOwner(Long userId, int from, int size);

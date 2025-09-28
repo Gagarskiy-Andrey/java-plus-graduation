@@ -11,8 +11,8 @@ public class RequestClientErrorDecoder extends AbstractErrorDecoder {
     @Override
     protected Map<Integer, Function<String, Exception>> getSpecificErrorHandlers() {
         return Map.of(
-                404, EntityNotFoundException::new,
-                409, BusinessRuleViolationException::new
+            404, EntityNotFoundException::new,
+            409, BusinessRuleViolationException::new
         );
     }
 }

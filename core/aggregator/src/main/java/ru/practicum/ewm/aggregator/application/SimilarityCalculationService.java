@@ -94,14 +94,14 @@ public class SimilarityCalculationService {
                 double minWeightSum = minWeightSums.get(otherEventId);
                 double similarity = minWeightSum / Math.sqrt(newWeightSum * otherEventWeightSum);
                 log.debug("Calculated similarity for pair ({}, {}): {} (newMinSum: {}, newWeightSum: {}, otherEventWeightSum: {})",
-                        eventA, eventB, similarity, minWeightSum, newWeightSum, otherEventWeightSum);
+                    eventA, eventB, similarity, minWeightSum, newWeightSum, otherEventWeightSum);
 
                 EventSimilarityAvro avroMessage = EventSimilarityAvro.newBuilder()
-                        .setEventA(eventA)
-                        .setEventB(eventB)
-                        .setScore(similarity)
-                        .setTimestamp(Instant.now())
-                        .build();
+                    .setEventA(eventA)
+                    .setEventB(eventB)
+                    .setScore(similarity)
+                    .setTimestamp(Instant.now())
+                    .build();
 
                 // Publish similarity to Kafka
                 producer.sendEventSimilarity(avroMessage);

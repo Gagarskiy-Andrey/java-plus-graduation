@@ -19,7 +19,7 @@ public interface RequestService {
     List<ParticipationRequestDto> getEventRequests(@Positive Long userId, @Positive Long eventId);
 
     EventRequestStatusUpdateResultDto updateRequestsStatus(
-            EventRequestStatusUpdateRequestParams requestParams);
+        EventRequestStatusUpdateRequestParams requestParams);
 
     Map<Long, Long> getConfirmedRequestCounts(Set<Long> eventIds);
 

@@ -36,8 +36,8 @@ public class CategoryRepositoryAdapter implements CategoryRepository {
     public List<Category> findAll(int from, int size) {
         Pageable pageable = PageRequest.of(from / size, size);
         return jpaCategoryRepository.findAll(pageable).stream()
-                .sorted(Comparator.comparing(Category::getName, String.CASE_INSENSITIVE_ORDER))
-                .collect(Collectors.toList());
+            .sorted(Comparator.comparing(Category::getName, String.CASE_INSENSITIVE_ORDER))
+            .collect(Collectors.toList());
     }
 
     @Override

@@ -58,20 +58,20 @@ public class AdminCommentController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<CommentAdminDto> getAllCommentsAdmin(
-            @RequestParam(name = "userId", required = false) @Positive Long userId,
-            @RequestParam(name = "eventId", required = false) @Positive Long eventId,
-            @RequestParam(name = "isDeleted", required = false) Boolean isDeleted,
-            @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero int from,
-            @RequestParam(name = "size", defaultValue = "10") @Positive int size) {
+        @RequestParam(name = "userId", required = false) @Positive Long userId,
+        @RequestParam(name = "eventId", required = false) @Positive Long eventId,
+        @RequestParam(name = "isDeleted", required = false) Boolean isDeleted,
+        @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero int from,
+        @RequestParam(name = "size", defaultValue = "10") @Positive int size) {
 
         log.info("Admin: Received request to get all comments with filters: userId={}, eventId={}, isDeleted={}, from={}, size={}",
-                userId, eventId, isDeleted, from, size);
+            userId, eventId, isDeleted, from, size);
 
         AdminCommentSearchParams searchParams = AdminCommentSearchParams.builder()
-                .userId(userId)
-                .eventId(eventId)
-                .isDeleted(isDeleted)
-                .build();
+            .userId(userId)
+            .eventId(eventId)
+            .isDeleted(isDeleted)
+            .build();
 
         List<CommentAdminDto> comments = commentService.getAllCommentsAdmin(searchParams, from, size);
 

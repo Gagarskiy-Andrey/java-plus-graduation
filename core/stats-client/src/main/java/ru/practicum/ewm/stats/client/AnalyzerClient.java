@@ -29,8 +29,8 @@ public class AnalyzerClient {
     public Map<Long, Double> getInteractionsCount(Collection<Long> eventIds) {
         log.debug("Requesting interaction counts for {} events", eventIds.size());
         InteractionsCountRequestProto request = InteractionsCountRequestProto.newBuilder()
-                .addAllEventIds(eventIds)
-                .build();
+            .addAllEventIds(eventIds)
+            .build();
 
         CompletableFuture<List<RecommendedEventProto>> future = new CompletableFuture<>();
         List<RecommendedEventProto> results = new ArrayList<>();
@@ -56,7 +56,7 @@ public class AnalyzerClient {
         try {
             List<RecommendedEventProto> finalResults = future.get(5, TimeUnit.SECONDS);
             return finalResults.stream()
-                    .collect(Collectors.toMap(RecommendedEventProto::getEventId, RecommendedEventProto::getScore));
+                .collect(Collectors.toMap(RecommendedEventProto::getEventId, RecommendedEventProto::getScore));
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             log.error("Failed to get interaction counts from analyzer", e);
             return Map.of();
@@ -66,9 +66,9 @@ public class AnalyzerClient {
     public Map<Long, Double> getRecommendationsForUser(Long userId, int maxResults) {
         log.debug("Requesting recommendations for user {}", userId);
         UserPredictionsRequestProto request = UserPredictionsRequestProto.newBuilder()
-                .setUserId(userId)
-                .setMaxResults(maxResults)
-                .build();
+            .setUserId(userId)
+            .setMaxResults(maxResults)
+            .build();
 
         CompletableFuture<List<RecommendedEventProto>> future = new CompletableFuture<>();
         List<RecommendedEventProto> results = new ArrayList<>();
@@ -94,7 +94,7 @@ public class AnalyzerClient {
         try {
             List<RecommendedEventProto> finalResults = future.get(5, TimeUnit.SECONDS);
             return finalResults.stream()
-                    .collect(Collectors.toMap(RecommendedEventProto::getEventId, RecommendedEventProto::getScore));
+                .collect(Collectors.toMap(RecommendedEventProto::getEventId, RecommendedEventProto::getScore));
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             log.error("Failed to get recommendations from analyzer", e);
             return Map.of();
@@ -104,7 +104,7 @@ public class AnalyzerClient {
     public Map<Long, Double> getSimilarEvents(Long eventId, Long userId, int maxResults) {
         log.debug("Requesting similar events for event {}", eventId);
         SimilarEventsRequestProto request = SimilarEventsRequestProto.newBuilder()
-                .setEventId(eventId).setUserId(userId).setMaxResults(maxResults).build();
+            .setEventId(eventId).setUserId(userId).setMaxResults(maxResults).build();
 
         CompletableFuture<List<RecommendedEventProto>> future = new CompletableFuture<>();
         List<RecommendedEventProto> results = new ArrayList<>();
@@ -130,7 +130,7 @@ public class AnalyzerClient {
         try {
             List<RecommendedEventProto> finalResults = future.get(5, TimeUnit.SECONDS);
             return finalResults.stream().collect(Collectors.toMap(RecommendedEventProto::getEventId,
-                    RecommendedEventProto::getScore));
+                RecommendedEventProto::getScore));
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             log.error("Failed to get similar events from analyzer", e);
             return Map.of();

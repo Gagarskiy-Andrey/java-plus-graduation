@@ -1,4 +1,4 @@
-package ru.practicum.explorewithme.user.application.params;
+package ru.practicum.ewm.user.application.params;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

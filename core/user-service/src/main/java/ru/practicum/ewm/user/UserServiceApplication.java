@@ -1,4 +1,4 @@
-package ru.practicum.explorewithme.user;
+package ru.practicum.ewm.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

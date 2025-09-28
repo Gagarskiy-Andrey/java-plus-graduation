@@ -1,4 +1,4 @@
-package ru.practicum.explorewithme.user.presentation.error;
+package ru.practicum.ewm.user.presentation.error;
 
 import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +26,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleEntityNotFoundException(EntityNotFoundException e) {
         log.warn("Entity not found: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.NOT_FOUND)
-                .reason("The required object was not found.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.NOT_FOUND)
+            .reason("The required object was not found.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -43,11 +43,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleEntityAlreadyExistsException(EntityAlreadyExistsException e) {
         log.warn("Entity already exists: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("Integrity constraint has been violated.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("Integrity constraint has been violated.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -60,11 +60,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleDataIntegrityViolationException(final DataIntegrityViolationException e) {
         log.warn("Database integrity violation: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("Integrity constraint has been violated.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("Integrity constraint has been violated.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -77,10 +77,10 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleIllegalArgumentException(final IllegalArgumentException e) {
         log.warn("Illegal argument: {}", e.getMessage(), e);
         return ApiError.builder()
-                .status(HttpStatus.BAD_REQUEST)
-                .reason("Incorrectly made request due to an invalid argument.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.BAD_REQUEST)
+            .reason("Incorrectly made request due to an invalid argument.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 }

@@ -10,6 +10,6 @@ import ru.practicum.ewm.event.domain.Category;
 public interface JpaCategoryRepository extends JpaRepository<Category, Long> {
 
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END " +
-            "FROM Category c WHERE LOWER(TRIM(c.name)) = LOWER(TRIM(:name))")
+        "FROM Category c WHERE LOWER(TRIM(c.name)) = LOWER(TRIM(:name))")
     boolean existsByNameIgnoreCaseAndTrim(@Param("name") String name);
 }

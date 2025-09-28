@@ -1,4 +1,4 @@
-package ru.practicum.explorewithme.user.domain;
+package ru.practicum.ewm.user.domain;
 
 import java.util.List;
 import java.util.Optional;

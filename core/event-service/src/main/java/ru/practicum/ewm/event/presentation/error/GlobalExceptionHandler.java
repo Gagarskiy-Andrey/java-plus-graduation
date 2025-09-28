@@ -13,6 +13,7 @@ import ru.practicum.ewm.api.error.BusinessRuleViolationException;
 import ru.practicum.ewm.api.error.EntityAlreadyExistsException;
 import ru.practicum.ewm.api.error.EntityDeletedException;
 import ru.practicum.ewm.api.error.EntityNotFoundException;
+import ru.practicum.ewm.api.error.IllegalLikeException;
 
 @RestControllerAdvice
 @Slf4j
@@ -28,11 +29,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleEntityNotFoundException(EntityNotFoundException e) {
         log.warn("Entity not found: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.NOT_FOUND)
-                .reason("The required object was not found.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.NOT_FOUND)
+            .reason("The required object was not found.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -45,15 +46,33 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleEntityAlreadyExistsException(EntityAlreadyExistsException e) {
         log.warn("Entity already exists: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("Integrity constraint has been violated.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("Integrity constraint has been violated.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
-     * Handles violations of business logic within the event service.
+     * Handles the specific business rule violation of a user trying to like an event
+     * they have not participated in.
+     * <br>
+     * Maps to HTTP 400 Bad Request.
+     */
+    @ExceptionHandler(IllegalLikeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleIllegalLikeException(IllegalLikeException e) {
+        log.warn("Illegal like attempt: {}", e.getMessage());
+        return ApiError.builder()
+            .status(HttpStatus.BAD_REQUEST)
+            .reason("The conditions for liking the event are not met.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
+    }
+
+    /**
+     * Handles generic violations of business logic within the event service.
      * <br>
      * Maps to HTTP 409 Conflict.
      */
@@ -62,11 +81,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleBusinessRuleViolationException(BusinessRuleViolationException e) {
         log.warn("Business rule violation: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("For the requested operation the conditions are not met.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("For the requested operation the conditions are not met.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -79,11 +98,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleEntityDeletedException(EntityDeletedException e) {
         log.warn("Cannot delete entity because it is in use: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("The resource cannot be deleted due to existing associations.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("The resource cannot be deleted due to existing associations.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -108,10 +127,10 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
         }
 
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("Integrity constraint has been violated.")
-                .message(userMessage)
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("Integrity constraint has been violated.")
+            .message(userMessage)
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 }

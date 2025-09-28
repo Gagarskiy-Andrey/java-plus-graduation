@@ -27,11 +27,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleEntityNotFoundException(EntityNotFoundException e) {
         log.warn("Entity not found: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.NOT_FOUND)
-                .reason("The required object was not found.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.NOT_FOUND)
+            .reason("The required object was not found.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -45,11 +45,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleEntityAlreadyExistsException(EntityAlreadyExistsException e) {
         log.warn("Entity already exists: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("Integrity constraint has been violated.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("Integrity constraint has been violated.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -62,11 +62,11 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
     public ApiError handleBusinessRuleViolationException(BusinessRuleViolationException e) {
         log.warn("Business rule violation: {}", e.getMessage());
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("For the requested operation the conditions are not met.")
-                .message(e.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("For the requested operation the conditions are not met.")
+            .message(e.getMessage())
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 
     /**
@@ -82,10 +82,10 @@ public class GlobalExceptionHandler extends BaseExceptionHandler {
         String message = "A participation request for this event by this user might already exist.";
 
         return ApiError.builder()
-                .status(HttpStatus.CONFLICT)
-                .reason("Integrity constraint has been violated.")
-                .message(message)
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.CONFLICT)
+            .reason("Integrity constraint has been violated.")
+            .message(message)
+            .timestamp(LocalDateTime.now())
+            .build();
     }
 }

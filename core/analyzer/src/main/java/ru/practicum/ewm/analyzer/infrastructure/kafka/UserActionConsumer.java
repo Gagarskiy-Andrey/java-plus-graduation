@@ -16,9 +16,9 @@ public class UserActionConsumer {
     private final IngestionService ingestionService;
 
     @KafkaListener(
-            id = "action-listener",
-            containerFactory = "actionContainerFactory",
-            topics = "${kafka.topic.user-actions}"
+        id = "action-listener",
+        containerFactory = "actionContainerFactory",
+        topics = "${kafka.topic.user-actions}"
     )
     public void consumeAction(UserActionAvro action) {
         log.info("Received action from user {} on event {}", action.getUserId(), action.getEventId());

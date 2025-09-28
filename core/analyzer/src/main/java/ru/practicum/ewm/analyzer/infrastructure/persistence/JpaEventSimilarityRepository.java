@@ -36,8 +36,8 @@ public interface JpaEventSimilarityRepository extends EventSimilarityRepository,
         ORDER BY es.score DESC
     """)
     List<Recommendation> findTopSimilarExcludingPageable(@Param("eventId") long eventId,
-                                                         @Param("excludedEvents") Collection<Long> excludedEvents,
-                                                         Pageable pageable);
+        @Param("excludedEvents") Collection<Long> excludedEvents,
+        Pageable pageable);
 
     @Override
     default List<Long> findTopSimilarToSet(Collection<Long> recentlyInteractedEvents, int maxResults) {
@@ -57,12 +57,12 @@ public interface JpaEventSimilarityRepository extends EventSimilarityRepository,
         ORDER BY AVG(es.score) DESC
     """)
     List<Long> findTopSimilarToSetPageable(@Param("eventSet") Collection<Long> recentlyInteractedEvents,
-                                           Pageable pageable);
+        Pageable pageable);
 
     @Override
     default Map<Long, List<Recommendation>> findNeighbourEventsFrom(Collection<Long> primaryEvents,
-                                                                    Collection<Long> candidates,
-                                                                    int maxNeighbours) {
+        Collection<Long> candidates,
+        int maxNeighbours) {
         if (primaryEvents == null || primaryEvents.isEmpty() || candidates == null || candidates.isEmpty()) {
             return Map.of();
         }
@@ -70,13 +70,13 @@ public interface JpaEventSimilarityRepository extends EventSimilarityRepository,
         List<NeighborProjection> results = findTopNNeighborsNative(primaryEvents, candidates, maxNeighbours);
 
         return results.stream()
-                .collect(Collectors.groupingBy(
-                        NeighborProjection::getPrimaryEvent,
-                        Collectors.mapping(
-                                proj -> new Recommendation(proj.getNeighborEvent(), proj.getScore()),
-                                Collectors.toList()
-                        )
-                ));
+            .collect(Collectors.groupingBy(
+                NeighborProjection::getPrimaryEvent,
+                Collectors.mapping(
+                    proj -> new Recommendation(proj.getNeighborEvent(), proj.getScore()),
+                    Collectors.toList()
+                )
+            ));
     }
 
     interface NeighborProjection {
@@ -104,6 +104,6 @@ public interface JpaEventSimilarityRepository extends EventSimilarityRepository,
         ORDER BY primary_event, score DESC
     """, nativeQuery = true)
     List<NeighborProjection> findTopNNeighborsNative(@Param("primaryEvents") Collection<Long> primaryEvents,
-                                                     @Param("candidates") Collection<Long> candidates,
-                                                     @Param("maxNeighbours") int maxNeighbours);
+        @Param("candidates") Collection<Long> candidates,
+        @Param("maxNeighbours") int maxNeighbours);
 }

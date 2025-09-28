@@ -7,7 +7,7 @@ import ru.practicum.ewm.api.client.request.enums.RequestStatus;
 public class EnumMapper {
 
     public RequestStatus toApiRequestStatus(
-            ru.practicum.ewm.request.domain.RequestStatus modelStatus) {
+        ru.practicum.ewm.request.domain.RequestStatus modelStatus) {
         if (modelStatus == null) {
             return null;
         }

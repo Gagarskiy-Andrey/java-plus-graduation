@@ -1,12 +1,12 @@
-package ru.practicum.explorewithme.user.infrastructure.persistence;
+package ru.practicum.ewm.user.infrastructure.persistence;
 
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import ru.practicum.explorewithme.user.domain.User;
-import ru.practicum.explorewithme.user.domain.UserRepository;
+import ru.practicum.ewm.user.domain.User;
+import ru.practicum.ewm.user.domain.UserRepository;
 
 @Component
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package ru.practicum.explorewithme.user.application;
+package ru.practicum.ewm.user.application;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +10,10 @@ import ru.practicum.ewm.api.client.user.dto.NewUserRequestDto;
 import ru.practicum.ewm.api.client.user.dto.UserDto;
 import ru.practicum.ewm.api.error.EntityAlreadyExistsException;
 import ru.practicum.ewm.api.error.EntityNotFoundException;
-import ru.practicum.explorewithme.user.application.params.GetListUsersParameters;
-import ru.practicum.explorewithme.user.domain.User;
-import ru.practicum.explorewithme.user.domain.UserRepository;
-import ru.practicum.explorewithme.user.infrastructure.mapper.UserMapper;
+import ru.practicum.ewm.user.application.params.GetListUsersParameters;
+import ru.practicum.ewm.user.domain.User;
+import ru.practicum.ewm.user.domain.UserRepository;
+import ru.practicum.ewm.user.infrastructure.mapper.UserMapper;
 
 @Service
 @RequiredArgsConstructor
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
                     .collect(Collectors.toList());
         } else {
             result = userRepository.findAllByIdIn(parameters.getIds(), parameters.getFrom(),
-                            parameters.getSize()).stream()
+                    parameters.getSize()).stream()
                     .map(userMapper::toUserDto)
                     .collect(Collectors.toList());
         }
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         }
 
         return userRepository.findByIdIn(ids).stream().map(userMapper::toUserDto)
-                .collect(Collectors.toList());
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
         }
 
         return userMapper.toUserDto(userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User", "Id", userId)));
+            .orElseThrow(() -> new EntityNotFoundException("User", "Id", userId)));
     }
 
 }

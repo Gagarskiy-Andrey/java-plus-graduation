@@ -43,11 +43,11 @@ public class IngestionService {
         Optional<EventSimilarity> oldSimilarityData = similarityRepository.findByEventAAndEventB(eventA, eventB);
         if (oldSimilarityData.isPresent()) {
             log.debug("Updating existing similarity for event pair ({}, {}). Old score: {}, New score: {}",
-                    eventA, eventB, oldSimilarityData.get().getScore(), similarityScore);
+                eventA, eventB, oldSimilarityData.get().getScore(), similarityScore);
             similarity.setId(oldSimilarityData.get().getId());
         }
         similarityRepository.save(similarity);
         log.info("{} event similarity for event pair ({}, {}) with score {}.",
-                oldSimilarityData.isPresent() ? "Updated" : "Saved", eventA, eventB, similarityScore);
+            oldSimilarityData.isPresent() ? "Updated" : "Saved", eventA, eventB, similarityScore);
     }
 }

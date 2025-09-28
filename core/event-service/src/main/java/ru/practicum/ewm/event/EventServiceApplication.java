@@ -8,9 +8,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {
-        "ru.practicum.explorewithme.stats.client",
-        "ru.practicum.explorewithme.api.client.user",
-        "ru.practicum.explorewithme.api.client.request"
+    "ru.practicum.ewm.stats.client",
+    "ru.practicum.ewm.api.client.user",
+    "ru.practicum.ewm.api.client.request"
 })
 public class EventServiceApplication {
     public static void main(String[] args) {

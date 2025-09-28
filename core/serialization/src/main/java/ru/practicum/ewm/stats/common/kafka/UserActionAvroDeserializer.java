@@ -14,7 +14,7 @@ import ru.practicum.ewm.stats.kafka.UserActionAvro;
 public class UserActionAvroDeserializer implements Deserializer<UserActionAvro> {
 
     private final SpecificDatumReader<UserActionAvro> datumReader = new SpecificDatumReader<>(
-            UserActionAvro.getClassSchema());
+        UserActionAvro.getClassSchema());
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {

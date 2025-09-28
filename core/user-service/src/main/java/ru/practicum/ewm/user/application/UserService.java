@@ -1,9 +1,9 @@
-package ru.practicum.explorewithme.user.application;
+package ru.practicum.ewm.user.application;
 
 import java.util.List;
 import ru.practicum.ewm.api.client.user.dto.NewUserRequestDto;
 import ru.practicum.ewm.api.client.user.dto.UserDto;
-import ru.practicum.explorewithme.user.application.params.GetListUsersParameters;
+import ru.practicum.ewm.user.application.params.GetListUsersParameters;
 
 public interface UserService {
 

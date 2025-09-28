@@ -8,8 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = {
-        "ru.practicum.explorewithme.api.client.user",
-        "ru.practicum.explorewithme.api.client.event"
+    "ru.practicum.ewm.api.client.user",
+    "ru.practicum.ewm.api.client.event"
 })
 public class CommentServiceApplication {
     public static void main(String[] args) {

@@ -59,10 +59,10 @@ public interface JpaUserInteractionRepository extends UserInteractionRepository,
     @Override
     default Map<Long, Double> findInteractionWeights(long userId, Collection<Long> eventIds) {
         return findMaxWeightsForUserAndEvents(userId, eventIds).stream()
-                .collect(Collectors.toMap(
-                        InteractionWeightProjection::getEventId,
-                        InteractionWeightProjection::getWeight
-                ));
+            .collect(Collectors.toMap(
+                InteractionWeightProjection::getEventId,
+                InteractionWeightProjection::getWeight
+            ));
     }
 
     interface InteractionWeightProjection {

@@ -15,8 +15,8 @@ public class EventSimilarityProducer {
     private final KafkaTemplate<String, EventSimilarityAvro> kafkaTemplate;
 
     public EventSimilarityProducer(
-            @Value("${kafka.topic.events-similarity}") String eventSimilarityTopic,
-            KafkaTemplate<String, EventSimilarityAvro> kafkaTemplate) {
+        @Value("${kafka.topic.events-similarity}") String eventSimilarityTopic,
+        KafkaTemplate<String, EventSimilarityAvro> kafkaTemplate) {
         this.eventSimilarityTopic = eventSimilarityTopic;
         this.kafkaTemplate = kafkaTemplate;
     }
@@ -25,13 +25,13 @@ public class EventSimilarityProducer {
         log.info("Sending event similarity data to Kafka topic '{}': {}", eventSimilarityTopic, eventSimilarity);
 
         kafkaTemplate.send(eventSimilarityTopic, eventSimilarity)
-                .whenComplete((result, ex) -> {
-                    if (ex == null) {
-                        log.info("Successfully sent event similarity data to offset {}",
-                                result.getRecordMetadata().offset());
-                    } else {
-                        log.error("Failed to send event similarity data: {}", ex.getMessage());
-                    }
-                });
+            .whenComplete((result, ex) -> {
+                if (ex == null) {
+                    log.info("Successfully sent event similarity data to offset {}",
+                        result.getRecordMetadata().offset());
+                } else {
+                    log.error("Failed to send event similarity data: {}", ex.getMessage());
+                }
+            });
     }
 }

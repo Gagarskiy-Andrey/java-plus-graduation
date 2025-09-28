@@ -86,7 +86,7 @@ public class EventRepositoryAdapter implements EventRepository {
         if (params.getText() != null && !params.getText().isBlank()) {
             String searchText = params.getText().toLowerCase();
             predicate.and(qEvent.annotation.lower().like("%" + searchText + "%")
-                    .or(qEvent.description.lower().like("%" + searchText + "%")));
+                .or(qEvent.description.lower().like("%" + searchText + "%")));
         }
         if (params.getCategories() != null && !params.getCategories().isEmpty()) {
             predicate.and(qEvent.category.id.in(params.getCategories()));

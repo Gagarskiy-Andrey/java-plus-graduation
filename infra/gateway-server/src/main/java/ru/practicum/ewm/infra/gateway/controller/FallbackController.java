@@ -14,16 +14,16 @@ public class FallbackController {
     @RequestMapping("/service-fallback")
     public Mono<ResponseEntity<ApiError>> serviceFallback() {
         ApiError errorResponse = ApiError.builder()
-                .status(HttpStatus.SERVICE_UNAVAILABLE)
-                .reason("The service is temporarily unavailable.")
-                .message("The requested service is not responding. Please try again later.")
-                .timestamp(LocalDateTime.now())
-                .build();
+            .status(HttpStatus.SERVICE_UNAVAILABLE)
+            .reason("The service is temporarily unavailable.")
+            .message("The requested service is not responding. Please try again later.")
+            .timestamp(LocalDateTime.now())
+            .build();
 
         ResponseEntity<ApiError> responseEntity =
-                ResponseEntity
-                        .status(HttpStatus.SERVICE_UNAVAILABLE)
-                        .body(errorResponse);
+            ResponseEntity
+                .status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(errorResponse);
 
         return Mono.just(responseEntity);
     }

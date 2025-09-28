@@ -14,7 +14,7 @@ import ru.practicum.ewm.stats.kafka.EventSimilarityAvro;
 public class EventSimilarityAvroDeserializer implements Deserializer<EventSimilarityAvro> {
 
     private final SpecificDatumReader<EventSimilarityAvro> datumReader = new SpecificDatumReader<>(
-            EventSimilarityAvro.getClassSchema());
+        EventSimilarityAvro.getClassSchema());
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {

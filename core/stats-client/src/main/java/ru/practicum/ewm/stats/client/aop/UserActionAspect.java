@@ -57,11 +57,11 @@ public class UserActionAspect {
         Timestamp timestamp = Timestamp.newBuilder().setSeconds(now.getEpochSecond()).setNanos(now.getNano()).build();
 
         UserActionProto userAction = UserActionProto.newBuilder()
-                .setUserId(userId)
-                .setEventId(eventId)
-                .setActionType(protoType)
-                .setTimestamp(timestamp)
-                .build();
+            .setUserId(userId)
+            .setEventId(eventId)
+            .setActionType(protoType)
+            .setTimestamp(timestamp)
+            .build();
 
         collectorClient.collectUserAction(userAction);
         log.debug("Successfully logged user action: {}", userAction);

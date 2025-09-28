@@ -15,9 +15,9 @@ public class EventSimilarityConsumer {
     private final IngestionService ingestionService;
 
     @KafkaListener(
-            id = "similarity-listener",
-            containerFactory = "similarityContainerFactory",
-            topics = "${kafka.topic.events-similarity}"
+        id = "similarity-listener",
+        containerFactory = "similarityContainerFactory",
+        topics = "${kafka.topic.events-similarity}"
     )
     public void consumeSimilarity(EventSimilarityAvro similarity) {
         log.info("Received similarity data for events {} and {}", similarity.getEventA(), similarity.getEventB());

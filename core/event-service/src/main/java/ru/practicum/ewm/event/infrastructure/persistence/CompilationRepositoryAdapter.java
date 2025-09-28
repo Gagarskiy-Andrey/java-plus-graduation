@@ -40,8 +40,8 @@ public class CompilationRepositoryAdapter implements CompilationRepository {
         Pageable pageable = PageRequest.of(from / size, size);
 
         return pinned.map(
-                        aBoolean -> jpaCompilationRepository.findByPinned(aBoolean, pageable).getContent())
-                .orElseGet(() -> jpaCompilationRepository.findAll(pageable).getContent());
+                aBoolean -> jpaCompilationRepository.findByPinned(aBoolean, pageable).getContent())
+            .orElseGet(() -> jpaCompilationRepository.findAll(pageable).getContent());
     }
 
     @Override

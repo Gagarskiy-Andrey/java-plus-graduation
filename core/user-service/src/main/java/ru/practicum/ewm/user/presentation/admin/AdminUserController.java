@@ -1,4 +1,4 @@
-package ru.practicum.explorewithme.user.presentation.admin;
+package ru.practicum.ewm.user.presentation.admin;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.ewm.api.client.user.dto.NewUserRequestDto;
 import ru.practicum.ewm.api.client.user.dto.UserDto;
-import ru.practicum.explorewithme.user.application.params.GetListUsersParameters;
-import ru.practicum.explorewithme.user.application.UserService;
+import ru.practicum.ewm.user.application.params.GetListUsersParameters;
+import ru.practicum.ewm.user.application.UserService;
 
 @RestController
 @RequestMapping("/admin/users")

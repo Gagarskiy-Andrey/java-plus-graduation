@@ -55,10 +55,10 @@ public class CommentServiceImpl implements CommentService {
         }
 
         List<Comment> result = commentRepository.findForEvent(
-                eventId,
-                parameters.getFrom(),
-                parameters.getSize(),
-                parameters.getSort()
+            eventId,
+            parameters.getFrom(),
+            parameters.getSize(),
+            parameters.getSort()
         );
 
         return enrichCommentsWithAuthors(result, commentMapper.toDtoList(result));
@@ -70,9 +70,9 @@ public class CommentServiceImpl implements CommentService {
         userClient.checkUserExists(userId);
 
         List<Comment> result = commentRepository.findForAuthor(
-                userId,
-                from,
-                size
+            userId,
+            from,
+            size
         );
 
         return enrichCommentsWithAuthors(result, commentMapper.toDtoList(result));
@@ -193,12 +193,12 @@ public class CommentServiceImpl implements CommentService {
         }
 
         Set<Long> authorIds = comments.stream()
-                .map(Comment::getAuthorId)
-                .collect(Collectors.toSet());
+            .map(Comment::getAuthorId)
+            .collect(Collectors.toSet());
 
         Map<Long, UserShortDto> authorMap = userClient.getUsersByIds(new ArrayList<>(authorIds))
-                .stream()
-                .collect(Collectors.toMap(UserDto::getId, userMapperApi::toUserShortDto));
+            .stream()
+            .collect(Collectors.toMap(UserDto::getId, userMapperApi::toUserShortDto));
 
         for (int i = 0; i < comments.size(); i++) {
             Comment comment = comments.get(i);

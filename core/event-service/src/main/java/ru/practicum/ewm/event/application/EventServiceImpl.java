@@ -50,7 +50,7 @@ public class EventServiceImpl implements EventService {
     private final CategoryRepository categoryRepository;
     private final RequestClient requestClient;
     private final AnalyzerClient analyzerClient;
-    private final UserMapperApi dtoMapper;
+    private final UserMapperApi userMapperApi;
 
     private static final long MIN_HOURS_BEFORE_PUBLICATION_FOR_ADMIN = 1;
 
@@ -70,14 +70,14 @@ public class EventServiceImpl implements EventService {
 
         if (Boolean.TRUE.equals(params.getOnlyAvailable())) {
             Map<Long, Integer> participantLimitMap = foundEvents.stream()
-                    .collect(Collectors.toMap(Event::getId, Event::getParticipantLimit));
+                .collect(Collectors.toMap(Event::getId, Event::getParticipantLimit));
 
             eventDtos = eventDtos.stream()
-                    .filter(dto -> {
-                        Integer limit = participantLimitMap.get(dto.getId());
-                        return limit == null || limit == 0 || dto.getConfirmedRequests() < limit;
-                    })
-                    .collect(Collectors.toList());
+                .filter(dto -> {
+                    Integer limit = participantLimitMap.get(dto.getId());
+                    return limit == null || limit == 0 || dto.getConfirmedRequests() < limit;
+                })
+                .collect(Collectors.toList());
         }
 
         if (params.getSort() != null && params.getSort().equalsIgnoreCase("RATING")) {
@@ -94,15 +94,15 @@ public class EventServiceImpl implements EventService {
         log.info("Public: Fetching event id={}", eventId);
 
         Event event = eventRepository.findByIdAndState(eventId, EventState.PUBLISHED)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format("Event with id=%d not found or is not published.", eventId)));
+            .orElseThrow(() -> new EntityNotFoundException(
+                String.format("Event with id=%d not found or is not published.", eventId)));
 
         EventFullDto resultDto = eventMapper.toEventFullDto(event);
 
         enrichEvents(List.of(resultDto));
 
         log.info("Public: Found event id={} with title='{}', rating={}, confirmedRequests={}",
-                eventId, resultDto.getTitle(), resultDto.getRating(), resultDto.getConfirmedRequests());
+            eventId, resultDto.getTitle(), resultDto.getRating(), resultDto.getConfirmedRequests());
 
         return resultDto;
     }
@@ -112,10 +112,10 @@ public class EventServiceImpl implements EventService {
     public List<EventFullDto> getEventsAdmin(AdminEventSearchParams params, int from, int size) {
 
         log.debug(
-                "Admin search for events with params: users={}, states={}, categories={}, "
-                        + "rangeStart={}, rangeEnd={}, from={}, size={}",
-                params.getUsers(), params.getStates(), params.getCategories(), params.getRangeStart(),
-                params.getRangeEnd(), from, size);
+            "Admin search for events with params: users={}, states={}, categories={}, "
+                + "rangeStart={}, rangeEnd={}, from={}, size={}",
+            params.getUsers(), params.getStates(), params.getCategories(), params.getRangeStart(),
+            params.getRangeEnd(), from, size);
 
         List<Event> foundEvents = eventRepository.findAdmin(params, from, size);
 
@@ -313,15 +313,15 @@ public class EventServiceImpl implements EventService {
         Event event = eventMapper.toEvent(newEventDto);
         event.setInitiatorId(userId);
         EventFullDto savedEvent = eventMapper.toEventFullDto(eventRepository.save(event));
-        savedEvent.setInitiator(dtoMapper.toUserShortDto(initiator));
+        savedEvent.setInitiator(userMapperApi.toUserShortDto(initiator));
         return enrichEvents(List.of(savedEvent)).getFirst();
     }
 
     @Override
     public void addLike(Long userId, Long eventId) {
         eventRepository.findByIdAndState(eventId, EventState.PUBLISHED).orElseThrow(
-                () -> new EntityNotFoundException(
-                        "Event with id=" + eventId + " not found or is not published."));
+            () -> new EntityNotFoundException(
+                "Event with id=" + eventId + " not found or is not published."));
 
         try {
             requestClient.checkUserParticipation(userId, eventId);
@@ -350,7 +350,7 @@ public class EventServiceImpl implements EventService {
         }
 
         return eventMapper.toEventInternalDto(eventRepository.findById(eventId)
-                .orElseThrow(() -> new EntityNotFoundException("Event", "Id", eventId)));
+            .orElseThrow(() -> new EntityNotFoundException("Event", "Id", eventId)));
     }
 
     /**
@@ -366,8 +366,8 @@ public class EventServiceImpl implements EventService {
         }
 
         Set<Long> eventIds = dtos.stream()
-                .map(T::getId)
-                .collect(Collectors.toSet());
+            .map(T::getId)
+            .collect(Collectors.toSet());
 
         Map<Long, Long> confirmedCountsMap = requestClient.getConfirmedRequestCounts(eventIds);
         Map<Long, Double> ratingsMap = analyzerClient.getInteractionsCount(eventIds);

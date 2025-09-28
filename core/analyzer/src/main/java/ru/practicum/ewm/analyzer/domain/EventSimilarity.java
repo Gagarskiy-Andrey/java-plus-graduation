@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "event_similarities", uniqueConstraints = @UniqueConstraint(columnNames = {"event_a",
-        "event_b"}))
+    "event_b"}))
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,4 +1,4 @@
-package ru.practicum.explorewithme.user.domain;
+package ru.practicum.ewm.user.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

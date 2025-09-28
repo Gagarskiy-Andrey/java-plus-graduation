@@ -19,8 +19,8 @@ public abstract class AbstractErrorDecoder implements ErrorDecoder {
     public final Exception decode(String methodKey, Response response) {
         ApiError errorDto = ErrorParser.parseErrorDto(response).orElse(null);
         String errorMessage = (errorDto != null && errorDto.getMessage() != null)
-                ? errorDto.getMessage()
-                : "No details provided from the remote service.";
+            ? errorDto.getMessage()
+            : "No details provided from the remote service.";
 
         Function<String, Exception> handler = getHandlers().get(response.status());
 
@@ -29,7 +29,7 @@ public abstract class AbstractErrorDecoder implements ErrorDecoder {
         }
 
         String detailedErrorMessage = String.format("Received status %d from %s with message: %s",
-                response.status(), methodKey, errorMessage);
+            response.status(), methodKey, errorMessage);
 
         return new RemoteServiceException(detailedErrorMessage);
     }

@@ -69,7 +69,7 @@ public class RequestServiceImpl implements RequestService {
         EventInternalDto event = eventClient.getEventById(eventId);
         if (!event.getInitiatorId().equals(userId)) {
             throw new EntityNotFoundException("Event with Id = " + eventId + " when initiator",
-                    "Id", userId);
+                "Id", userId);
         }
         return requestRepository.findByEventId(eventId).stream()
                 .sorted(Comparator.comparing(ParticipationRequest::getCreated).reversed())
@@ -79,7 +79,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public EventRequestStatusUpdateResultDto updateRequestsStatus(
-            EventRequestStatusUpdateRequestParams requestParams) {
+        EventRequestStatusUpdateRequestParams requestParams) {
         Long userId = requestParams.getUserId();
         Long eventId = requestParams.getEventId();
         List<Long> requestIdsForUpdate = requestParams.getRequestIds();
@@ -98,7 +98,7 @@ public class RequestServiceImpl implements RequestService {
             throw new BusinessRuleViolationException("Not all requests are for event with Id = " + eventId);
         }
         if (requestRepository
-                .countByEventIdAndStatus(eventId, RequestStatus.CONFIRMED) >= event.getParticipantLimit()) {
+              .countByEventIdAndStatus(eventId, RequestStatus.CONFIRMED) >= event.getParticipantLimit()) {
             throw new BusinessRuleViolationException("Event participant limit reached");
         }
         LinkedHashMap<Long, ParticipationRequest> requestsMap = requestRepository.findAllByIdIn(requestIdsForUpdate).stream()
@@ -127,14 +127,14 @@ public class RequestServiceImpl implements RequestService {
         final int[] availableRequests = {event.getParticipantLimit() -
                 requestRepository.countByEventIdAndStatus(eventId, RequestStatus.CONFIRMED)};
         requestsMap.values().forEach(request -> {
-            if (availableRequests[0] > 0) {
-                request.setStatus(RequestStatus.CONFIRMED);
-                result.getConfirmedRequests().add(requestMapper.toRequestDto(request));
-                availableRequests[0]--;
-            } else {
-                request.setStatus(RequestStatus.REJECTED);
-                result.getRejectedRequests().add(requestMapper.toRequestDto(request));
-            }
+             if (availableRequests[0] > 0) {
+                 request.setStatus(RequestStatus.CONFIRMED);
+                 result.getConfirmedRequests().add(requestMapper.toRequestDto(request));
+                 availableRequests[0]--;
+             } else {
+                 request.setStatus(RequestStatus.REJECTED);
+                 result.getRejectedRequests().add(requestMapper.toRequestDto(request));
+             }
         });
         requestRepository.saveAll(requestsMap.values());
 

@@ -23,7 +23,7 @@ public class InMemoryUserEventWeightsRepository implements UserEventWeightsRepos
     @Override
     public void save(long userId, long eventId, double weight) {
         userEventWeights.computeIfAbsent(userId, k -> new ConcurrentHashMap<>())
-                .put(eventId, weight);
+            .put(eventId, weight);
     }
 
     @Override

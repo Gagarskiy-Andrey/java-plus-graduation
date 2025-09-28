@@ -16,9 +16,9 @@ public class UserActionConsumer {
     private final SimilarityCalculationService similarityCalculationService;
 
     @KafkaListener(
-            id = "action-listener",
-            topics = "${kafka.topic.user-actions}",
-            groupId = "${spring.kafka.consumer.group-id}"
+        id = "action-listener",
+        topics = "${kafka.topic.user-actions}",
+        groupId = "${spring.kafka.consumer.group-id}"
     )
     public void consumeAction(UserActionAvro action) {
         log.info("Received action from user {} on event {}", action.getUserId(), action.getEventId());

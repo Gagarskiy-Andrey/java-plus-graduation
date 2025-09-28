@@ -20,6 +20,6 @@ public interface JpaCompilationRepository extends JpaRepository<Compilation, Lon
     Page<Compilation> findAll(Pageable pageable);
 
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END " +
-            "FROM Compilation c WHERE LOWER(TRIM(c.title)) = LOWER(TRIM(:title))")
+        "FROM Compilation c WHERE LOWER(TRIM(c.title)) = LOWER(TRIM(:title))")
     boolean existsByTitleIgnoreCaseAndTrim(@Param("title") String title);
 }

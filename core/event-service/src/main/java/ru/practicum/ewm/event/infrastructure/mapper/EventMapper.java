@@ -14,9 +14,9 @@ import ru.practicum.ewm.event.domain.Event;
 public interface EventMapper {
 
     @Mappings({
-            @Mapping(target = "confirmedRequests", ignore = true),
-            @Mapping(target = "rating", ignore = true),
-            @Mapping(target = "initiator", ignore = true)
+        @Mapping(target = "confirmedRequests", ignore = true),
+        @Mapping(target = "rating", ignore = true),
+        @Mapping(target = "initiator", ignore = true)
     })
     EventFullDto toEventFullDto(Event event);
 
@@ -33,9 +33,9 @@ public interface EventMapper {
     List<EventFullDto> toEventFullDtoList(List<Event> events);
 
     @Mappings({
-            @Mapping(target = "confirmedRequests", ignore = true),
-            @Mapping(target = "rating", ignore = true),
-            @Mapping(target = "initiator", ignore = true)
+        @Mapping(target = "confirmedRequests", ignore = true),
+        @Mapping(target = "rating", ignore = true),
+        @Mapping(target = "initiator", ignore = true)
     })
     EventShortDto toEventShortDto(Event event);
 

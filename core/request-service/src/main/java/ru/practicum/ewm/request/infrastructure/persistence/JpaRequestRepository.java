@@ -31,15 +31,15 @@ public interface JpaRequestRepository extends JpaRepository<ParticipationRequest
 
     @Modifying
     @Query("UPDATE ParticipationRequest r SET r.status = 'REJECTED' " +
-            "WHERE r.eventId = :eventId AND r.status = 'PENDING'")
+        "WHERE r.eventId = :eventId AND r.status = 'PENDING'")
     void rejectAllPendingForEvent(@Param("eventId") Long eventId);
 
     List<ParticipationRequest> findByEventId(Long eventId);
 
     @Query("SELECT r.eventId as eventId, COUNT(r.id) as requestCount " +
-            "FROM ParticipationRequest r " +
-            "WHERE r.eventId IN :eventIds AND r.status = 'CONFIRMED' " +
-            "GROUP BY r.eventId")
+        "FROM ParticipationRequest r " +
+        "WHERE r.eventId IN :eventIds AND r.status = 'CONFIRMED' " +
+        "GROUP BY r.eventId")
     List<ConfirmedRequestCountProjection> countConfirmedRequestsForEventIds(@Param("eventIds") Set<Long> eventIds);
 
     interface ConfirmedRequestCountProjection {

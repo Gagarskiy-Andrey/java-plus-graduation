@@ -15,8 +15,8 @@ public class UserActionProducer {
     private final KafkaTemplate<String, UserActionAvro> kafkaTemplate;
 
     public UserActionProducer(
-            @Value("${kafka.topic.user-actions}") String userActionsTopic,
-            KafkaTemplate<String, UserActionAvro> kafkaTemplate) {
+        @Value("${kafka.topic.user-actions}") String userActionsTopic,
+        KafkaTemplate<String, UserActionAvro> kafkaTemplate) {
         this.userActionsTopic = userActionsTopic;
         this.kafkaTemplate = kafkaTemplate;
     }
@@ -25,13 +25,13 @@ public class UserActionProducer {
         log.info("Sending user action to Kafka topic '{}': {}", userActionsTopic, userAction);
 
         kafkaTemplate.send(userActionsTopic, userAction)
-                .whenComplete((result, ex) -> {
-                    if (ex == null) {
-                        log.info("Successfully sent user action to offset {}",
-                                result.getRecordMetadata().offset());
-                    } else {
-                        log.error("Failed to send user action: {}", ex.getMessage());
-                    }
-                });
+            .whenComplete((result, ex) -> {
+                if (ex == null) {
+                    log.info("Successfully sent user action to offset {}",
+                        result.getRecordMetadata().offset());
+                } else {
+                    log.error("Failed to send user action: {}", ex.getMessage());
+                }
+            });
     }
 }

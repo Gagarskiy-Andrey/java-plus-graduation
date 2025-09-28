@@ -30,9 +30,9 @@ public class InMemoryEventWeightSumsRepository implements EventWeightSumsReposit
         }
 
         return eventIds.stream()
-                .collect(Collectors.toConcurrentMap( // Use a concurrent map for thread safety
-                        Function.identity(),
-                        eventId -> eventWeightSums.getOrDefault(eventId, 0.0) // Provide 0 for missing values
-                ));
+            .collect(Collectors.toConcurrentMap( // Use a concurrent map for thread safety
+                Function.identity(),
+                eventId -> eventWeightSums.getOrDefault(eventId, 0.0) // Provide 0 for missing values
+            ));
     }
 }

@@ -18,13 +18,13 @@ public interface CommentMapper {
      * Поля id, createdOn, updatedOn, isEdited, isDeleted будут установлены автоматически/в логике.
      */
     @Mappings({
-            @Mapping(target = "id", ignore = true),
-            @Mapping(target = "createdOn", ignore = true),
-            @Mapping(target = "updatedOn", ignore = true),
-            @Mapping(target = "authorId", ignore = true),
-            @Mapping(target = "eventId", ignore = true),
-            @Mapping(target = "isEdited", ignore = true),
-            @Mapping(target = "isDeleted", ignore = true)
+        @Mapping(target = "id", ignore = true),
+        @Mapping(target = "createdOn", ignore = true),
+        @Mapping(target = "updatedOn", ignore = true),
+        @Mapping(target = "authorId", ignore = true),
+        @Mapping(target = "eventId", ignore = true),
+        @Mapping(target = "isEdited", ignore = true),
+        @Mapping(target = "isDeleted", ignore = true)
     })
     Comment toComment(NewCommentDto newCommentDto);
 
@@ -35,8 +35,8 @@ public interface CommentMapper {
      * Поле isDeleted не включается.
      */
     @Mappings({
-            @Mapping(source = "edited", target = "isEdited"),
-            @Mapping(target = "author", ignore = true)
+        @Mapping(source = "edited", target = "isEdited"),
+        @Mapping(target = "author", ignore = true)
     })
     CommentDto toDto(Comment comment);
 
@@ -47,9 +47,9 @@ public interface CommentMapper {
      * Включает поле isDeleted.
      */
     @Mappings({
-            @Mapping(source = "edited", target = "isEdited"),
-            @Mapping(source = "deleted", target = "isDeleted"),
-            @Mapping(target = "author", ignore = true)
+        @Mapping(source = "edited", target = "isEdited"),
+        @Mapping(source = "deleted", target = "isDeleted"),
+        @Mapping(target = "author", ignore = true)
     })
     CommentAdminDto toAdminDto(Comment comment);
 

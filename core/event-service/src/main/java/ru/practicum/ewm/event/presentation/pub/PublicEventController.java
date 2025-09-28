@@ -40,10 +40,10 @@ public class PublicEventController {
             @RequestHeader(name = "X-Real-IP", required = false) String ipAddress) {
 
         log.info(
-                "Public: Received request to get events with params: text={}, categories={}, paid={},"
-                        + " rangeStart={}, rangeEnd={}, onlyAvailable={}, sort={}, from={}, size={}",
-                params.getText(), params.getCategories(), params.getPaid(), params.getRangeStart(),
-                params.getRangeEnd(), params.getOnlyAvailable(), params.getSort(), from, size);
+            "Public: Received request to get events with params: text={}, categories={}, paid={},"
+                + " rangeStart={}, rangeEnd={}, onlyAvailable={}, sort={}, from={}, size={}",
+            params.getText(), params.getCategories(), params.getPaid(), params.getRangeStart(),
+            params.getRangeEnd(), params.getOnlyAvailable(), params.getSort(), from, size);
 
         List<EventShortDto> events = eventService.getEventsPublic(params, from, size);
         log.info("Public: Found {} events", events.size());
@@ -65,7 +65,7 @@ public class PublicEventController {
     @GetMapping("/recommendations")
     @ResponseStatus(HttpStatus.OK)
     public List<EventShortDto> getRecommendations(@RequestHeader("X-EWM-USER-ID") long userId,
-                                                  @RequestParam(name = "maxCount", defaultValue = "10") Integer maxCount) {
+        @RequestParam(name = "maxCount", defaultValue = "10") Integer maxCount) {
         return eventService.getRecommendations(userId, maxCount);
     }
 }
