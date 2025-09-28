@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import ru.practicum.ewm.comment.application.params.AdminCommentSearchParams;
 import ru.practicum.ewm.comment.domain.Comment;
 import ru.practicum.ewm.comment.domain.CommentRepository;
-import ru.practicum.explorewithme.comment.domain.QComment;
+import ru.practicum.ewm.comment.domain.QComment;
 
 @Component
 @RequiredArgsConstructor
